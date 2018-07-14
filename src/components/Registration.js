@@ -8,14 +8,16 @@ class Registration extends Component {
     this.state = {
       email: '',
       password: '',
-      password_confirmation: '',
+      passwordConfirmation: '',
       error: '',
-      loading: false
+      loading: false,
     };
   }
 
   render() {
-    const { email, password, password_confirmation, error, loading } = this.state;
+    const {
+      email, password, passwordConfirmation, error, loading,
+    } = this.state;
 
     return (
       <Fragment>
@@ -44,8 +46,8 @@ class Registration extends Component {
               secureTextEntry
               placeholder="confirm password"
               label="Confirm Password"
-              value={password_confirmation}
-              onChangeText={password_confirmation => this.setState({ password_confirmation })}
+              value={passwordConfirmation}
+              onChangeText={passwordConfirmation => this.setState({ passwordConfirmation })}
             />
           </View>
 
@@ -58,7 +60,7 @@ class Registration extends Component {
               Register
             </Button>
             :
-            <Loading size={'large'} />}
+            <Loading size="large" />}
 
         </View>
 
@@ -85,8 +87,8 @@ const styles = StyleSheet.create({
   errorText: {
     alignSelf: 'center',
     fontSize: 18,
-    color: 'red'
-  }
+    color: 'red',
+  },
 });
 
 export { Registration };

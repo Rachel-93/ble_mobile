@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux';
-import homeReducers from './homeReducers';
+import weather from './weather';
+import stats from './stats';
 
-const allReducers = combineReducers({
-    homeReducers,
-});
-
-export default allReducers;
+export default {
+  weather,
+  stats,
+};

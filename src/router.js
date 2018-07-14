@@ -1,27 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { StackNavigator, createBottomTabNavigator } from 'react-navigation';
-import Home from './containers/HomeContainer';
-import Settings from './containers/Settings';
-import Details from './containers/Details';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { Home } from './containers/HomeContainer';
+import { Settings } from './containers/Settings';
+import { Details } from './containers/Details';
+import Stats from './containers/Stats';
 
-export const HomeStack = StackNavigator({
-  Home: { screen: Home },
-  Details: { screen: Details }
-},
+export const HomeStack = createStackNavigator(
+  {
+    Home: { screen: Home },
+    Details: { screen: Details },
+  },
   {
     navigationOptions: {
       headerStyle: {
-        backgroundColor: 'red'
+        backgroundColor: 'red',
       },
-      headerTintColor: '#fff'
-    }
-  });
+      headerTintColor: '#fff',
+    },
+  },
+);
 
-export const RootStack = createBottomTabNavigator({
-  Home: HomeStack,
-  Settings: Settings
-},
+export const StatsStack = createStackNavigator(
+  {
+    Stats: { screen: Stats },
+    Details: { screen: Details },
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'red',
+      },
+      headerTintColor: '#fff',
+    },
+  },
+);
+
+
+export const RootStack = createBottomTabNavigator(
+  {
+    Home: HomeStack,
+    Settings,
+    Stats: StatsStack,
+  },
   {
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
@@ -29,7 +50,7 @@ export const RootStack = createBottomTabNavigator({
         let iconName;
         if (routeName === 'Home') {
           iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Settings') {
+        } else if (routeName === 'Stats') {
           iconName = `ios-options${focused ? '' : '-outline'}`;
         }
 
@@ -38,6 +59,7 @@ export const RootStack = createBottomTabNavigator({
     }),
     tabBarOptions: {
       activeTintColor: 'tomato',
-      inactiveTintColor: 'gray'
-    }
-  });
+      inactiveTintColor: 'gray',
+    },
+  },
+);

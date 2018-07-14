@@ -1,37 +1,23 @@
 import React, { Component } from 'react';
-import{
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { Loading } from './components/common/';
-import Auth from './containers/Auth';
-import { RootStack } from './router';
-
-// Redux
-import { createStore, applyMiddleware } from 'redux';
+import { YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
-import allReducers from './reducers';
+import { Auth } from './containers/Auth';
+import { RootStack } from './router';
+import configureStore from './store/configureStore';
 
-// Redux Saga
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './saga/rootSaga';
-
-const sagaMiddleware = createSagaMiddleware();
-let store = createStore(allReducers, applyMiddleware(sagaMiddleware));
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader', 'Remote debugger']);
 
 export default class App extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      //jwt: ''
-      jwt: true
-    }
+      jwt: true,
+    };
   }
 
   render() {
-    if (!this.state.jwt){
+    const { store } = configureStore();
+    if (!this.state.jwt) {
       return (
         <Auth />
       );
@@ -40,9 +26,7 @@ export default class App extends Component {
         <Provider store={store}>
           <RootStack />
         </Provider>
-      )
+      );
     }
   }
 }
-
-sagaMiddleware.run(rootSaga);
